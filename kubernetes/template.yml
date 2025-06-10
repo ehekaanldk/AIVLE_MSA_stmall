@@ -1,0 +1,228 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order 관리
+  labels:
+    app: order 관리
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order 관리
+  template:
+    metadata:
+      labels:
+        app: order 관리
+    spec:
+      containers:
+        - name: order 관리
+          image: username/order 관리:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delivery관리
+  labels:
+    app: delivery관리
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delivery관리
+  template:
+    metadata:
+      labels:
+        app: delivery관리
+    spec:
+      containers:
+        - name: delivery관리
+          image: username/delivery관리:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock관리
+  labels:
+    app: stock관리
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stock관리
+  template:
+    metadata:
+      labels:
+        app: stock관리
+    spec:
+      containers:
+        - name: stock관리
+          image: username/stock관리:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard
+  labels:
+    app: dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard
+  template:
+    metadata:
+      labels:
+        app: dashboard
+    spec:
+      containers:
+        - name: dashboard
+          image: username/dashboard:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: order 관리
+  labels:
+    app: order 관리
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: order 관리
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: delivery관리
+  labels:
+    app: delivery관리
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: delivery관리
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: stock관리
+  labels:
+    app: stock관리
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: stock관리
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard
+  labels:
+    app: dashboard
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: dashboard
+
